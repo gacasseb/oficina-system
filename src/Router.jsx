@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
 import Index from './views/Index.jsx'
 import Automoveis from './views/Automoveis.jsx'
+import Orcamento from './views/orcamento/Orcamento.jsx'
 
 const Router = props => {
 
@@ -14,6 +15,9 @@ const Router = props => {
                 <Layout>
                     <Route exact path='/automoveis'>
                         <Automoveis/>
+                    </Route>
+                    <Route exact path='/orcamento'>
+                        <Orcamento/>
                     </Route>
                     <Route exact path='/'>
                         <Index/>

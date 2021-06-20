@@ -32,26 +32,27 @@ const MainLayout = props => {
                     style={{ height: '100%', borderRight: 0 }}
                     >
                         <Menu.Item onClick={_=>redirect('/')}>Home</Menu.Item>
-                    <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
+                    <SubMenu key="sub1" icon={<UserOutlined />} title="nome_do_usuario">
                         <Menu.Item key="1" onClick={_ => redirect('/orcamento')}>Solicitar orçamento</Menu.Item>
                         <Menu.Item key="2" onClick={_ => redirect('/automoveis')}>Meus automóveis</Menu.Item>
                         <Menu.Item key="3" onClick={_=> redirect('/relatorios')}>Relatórios</Menu.Item>
                     </SubMenu>
                     </Menu>
                 </Sider>
-                <Layout style={{ padding: '0 24px 24px' }}>
+                <Layout style={{ padding: '0 24px 24px'}}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                     <Breadcrumb.Item>Home</Breadcrumb.Item>
                     </Breadcrumb>
                     <Content
                         className="site-layout-background"
                         style={{
+                            backgroundColor: 'white',
                             padding: 24,
                             margin: 0,
-                            minHeight: 280,
+                            minHeight: 280
                         }}
                     >
-                        {props.children}
+                        <div className="site-layout-content">{props.children}</div>
                     </Content>
                 </Layout>
                 </Layout>
