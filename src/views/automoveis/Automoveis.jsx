@@ -1,45 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Form, Input, Select, Button, DatePicker } from 'antd'
+import RegistraAutomovel from '../../components/RegistraAutomovel'
+import { Button, List } from 'antd'
 
+import { carros } from '../../carros_registrados';
 
 const Automoveis = () => {
+
+    const [showModal, setShowModal] = useState(false)
+
+    const data = carros.map(carro => {
+        return {
+            title: carro.name,
+            description: carro.year
+        }
+    })
+
     return (
-        <div style={{width: '100%', textAlign: 'center'}}>
-            <div style={{display: 'inline-block', width: '50%', margin: '0 auto'}}>
-                <Form layout='vertical'>
-                    <Form.Item label='Tipo do automóvel'>
-                        <Select
-                            placeholder='Selecione o tipo do automóvel'
-                        >
-                            <Select.Option value='carro'>
-                                Carro
-                            </Select.Option>
-                            <Select.Option value='moto'>
-                                Moto
-                            </Select.Option>
-                            <Select.Option value='caminhao'>
-                                Caminhão
-                            </Select.Option>
-                        </Select>
-                    </Form.Item>
-                    <Form.Item label='Modelo'>
-                        <Input placeholder='Insira o modelo do automóvel'></Input>
-                    </Form.Item>
-                    <Form.Item label='Ano do modelo'>
-                        <DatePicker picker='year' placeholder='Insira o ano'></DatePicker>
-                    </Form.Item>
-                    <Form.Item label='Placa'>
-                        <Input placeholder='Insira o registro de placa do automóvel'></Input>
-                    </Form.Item>
-                    <Form.Item>
-                        <Button>
-                            Regitrar automóvel
-                        </Button>
-                    </Form.Item>
-                </Form>
+        <>
+            <List
+                itemLayout="horizontal"
+                dataSource={data}
+                renderItem={item => {
+                    return <List.Item>
+                        <List.Item.Meta
+                            title={item.title}
+                            description={item.description}
+                        />
+                    </List.Item>
+                }}
+            />
+            <div style={{width: '100%', textAlign: 'center'}}>
+                <div style={{display: 'inline-block', width: '50%', margin: '0 auto'}}>
+                    
+                    <RegistraAutomovel 
+                        visible={showModal} 
+                        onOk={_=>setShowModal(false)}
+                        onCancel={_=>setShowModal(false)}
+                    />
+                    <Button onClick={_=>setShowModal(true)}>
+                        Registrar automovel
+                    </Button>
+                </div>
             </div>
-        </div>
+        </>
     )
 };
 
