@@ -6,6 +6,7 @@ import Layout from './components/Layout.jsx'
 import Index from './views/Index.jsx'
 import Automoveis from './views/automoveis/Automoveis.jsx'
 import Orcamento from './views/orcamento/Orcamento.jsx'
+import Relatorios from './views/relatorios/Relatorios.jsx'
 
 const Router = props => {
 
@@ -18,6 +19,9 @@ const Router = props => {
                     </Route>
                     <Route exact path='/orcamento'>
                         <Orcamento/>
+                    </Route>
+                    <Route exact path='/relatorios'>
+                        <Relatorios/>
                     </Route>
                     <Route exact path='/'>
                         <Index/>
