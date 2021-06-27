@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import Layout from './components/Layout.jsx'
 import Index from './views/Index.jsx'
-import Automoveis from './views/Automoveis.jsx'
+import Automoveis from './views/automoveis/Automoveis.jsx'
 import Orcamento from './views/orcamento/Orcamento.jsx'
 
 const Router = props => {

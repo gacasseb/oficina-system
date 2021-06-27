@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Layout, Menu, Breadcrumb } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 
 const { SubMenu } = Menu
 const { Header, Content, Sider } = Layout
@@ -11,6 +11,12 @@ const { Header, Content, Sider } = Layout
 const MainLayout = props => {
 
     const history = useHistory()
+    const location = useLocation()
+    const [selected, setSelected] = useState([location.pathname])
+
+    useEffect(() => {
+        setSelected([location.pathname])
+    }, [location.pathname])
 
     const redirect = (url) => {
         history.push(url)
@@ -21,22 +27,22 @@ const MainLayout = props => {
             <Layout>
                 <Header className="header">
                 <div className="logo" />
-                
                 </Header>
                 <Layout>
                 <Sider width={200} className="site-layout-background">
                     <Menu
-                    mode="inline"
-                    defaultSelectedKeys={['1']}
-                    defaultOpenKeys={['sub1']}
-                    style={{ height: '100%', borderRight: 0 }}
+                        mode="inline"
+                        selectedKeys={selected}
+                        defaultSelectedKeys={['/orcamento']}
+                        defaultOpenKeys={['/orcamento']}
+                        style={{ height: '100%', borderRight: 0 }}
                     >
-                        <Menu.Item onClick={_=>redirect('/')}>Home</Menu.Item>
-                    <SubMenu key="sub1" icon={<UserOutlined />} title="nome_do_usuario">
-                        <Menu.Item key="1" onClick={_ => redirect('/orcamento')}>Solicitar orçamento</Menu.Item>
-                        <Menu.Item key="2" onClick={_ => redirect('/automoveis')}>Meus automóveis</Menu.Item>
-                        <Menu.Item key="3" onClick={_=> redirect('/relatorios')}>Relatórios</Menu.Item>
-                    </SubMenu>
+                        <Menu.Item key='Home' onClick={ _ => redirect('/') }>Home</Menu.Item>
+                        <SubMenu key="sub1" icon={<UserOutlined />} title="nome_do_usuario">
+                            <Menu.Item key="/orcamento" onClick={ _ => redirect('/orcamento')}>Solicitar orçamento</Menu.Item>
+                            <Menu.Item key="/automoveis" onClick={ _ => redirect('/automoveis')}>Meus automóveis</Menu.Item>
+                            <Menu.Item key="/relatorios" onClick={ _ => redirect('/relatorios')}>Relatórios</Menu.Item>
+                        </SubMenu>
                     </Menu>
                 </Sider>
                 <Layout style={{ padding: '0 24px 24px'}}>
