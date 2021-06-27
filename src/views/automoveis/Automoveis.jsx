@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import RegistraAutomovel from '../../components/RegistraAutomovel'
 import { Button, List } from 'antd'
+import { PlusOutlined } from '@ant-design/icons';
 
 import { carros } from '../../carros_registrados';
 
@@ -19,6 +20,12 @@ const Automoveis = () => {
     return (
         <>
             <List
+                header='Meus automóveis'
+                footer={<Button 
+                    icon={<PlusOutlined/>}
+                    onClick={_=>setShowModal(true)}
+                    type='link'
+                >Registrar automóvel</Button>}
                 itemLayout="horizontal"
                 dataSource={data}
                 renderItem={item => {
@@ -38,9 +45,7 @@ const Automoveis = () => {
                         onOk={_=>setShowModal(false)}
                         onCancel={_=>setShowModal(false)}
                     />
-                    <Button onClick={_=>setShowModal(true)}>
-                        Registrar automovel
-                    </Button>
+                    
                 </div>
             </div>
         </>

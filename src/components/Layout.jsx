@@ -29,7 +29,7 @@ const MainLayout = props => {
                 <div className="logo" />
                 </Header>
                 <Layout>
-                <Sider width={200} className="site-layout-background">
+                <Sider width={250} className="site-layout-background">
                     <Menu
                         mode="inline"
                         selectedKeys={selected}
@@ -38,10 +38,13 @@ const MainLayout = props => {
                         style={{ height: '100%', borderRight: 0 }}
                     >
                         <Menu.Item key='Home' onClick={ _ => redirect('/') }>Home</Menu.Item>
-                        <SubMenu key="sub1" icon={<UserOutlined />} title="nome_do_usuario">
+                        <SubMenu key="menu-user" icon={<UserOutlined />} title="nome_do_usuario">
                             <Menu.Item key="/orcamento" onClick={ _ => redirect('/orcamento')}>Solicitar orçamento</Menu.Item>
                             <Menu.Item key="/automoveis" onClick={ _ => redirect('/automoveis')}>Meus automóveis</Menu.Item>
                             <Menu.Item key="/relatorios" onClick={ _ => redirect('/relatorios')}>Relatórios</Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="menu-admin" icon={<UserOutlined />} title="nome_do_admin">
+                            <Menu.Item key="/solicitacoes" onClick={ _ => redirect('/solicitacoes')}>Solicitações de orçamento</Menu.Item>
                         </SubMenu>
                     </Menu>
                 </Sider>
