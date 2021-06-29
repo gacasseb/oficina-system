@@ -10,7 +10,8 @@ const { Title } = Typography;
 
 const Login = props => {
     const colors = {
-        background: '#0C1618',
+        //'#0C1618' background color
+        background: '#FFFFFF',
         primary: '#008F88',
         secondary: '#FAF4D3',
     }
