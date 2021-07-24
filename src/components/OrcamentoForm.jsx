@@ -7,8 +7,6 @@ const OrcamentoForm = () => {
     const [form] = Form.useForm()
     const [finalPrice, setPriceFinal] = useState(null)
 
-    console.log('final price', finalPrice)
-
     const setFinalPrice = () => {
         let discount = form.getFieldValue('discount')
         let totalPrice = form.getFieldValue('total-price')

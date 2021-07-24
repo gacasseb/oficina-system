@@ -37,7 +37,6 @@ const MainLayout = props => {
                         defaultOpenKeys={['/orcamento']}
                         style={{ height: '100%', borderRight: 0 }}
                     >
-                        <Menu.Item key='Home' onClick={ _ => redirect('/') }>Home</Menu.Item>
                         <SubMenu key="menu-user" icon={<UserOutlined />} title="nome_do_usuario">
                             <Menu.Item key="/orcamento" onClick={ _ => redirect('/orcamento')}>Solicitar orçamento</Menu.Item>
                             <Menu.Item key="/automoveis" onClick={ _ => redirect('/automoveis')}>Meus automóveis</Menu.Item>
@@ -48,10 +47,7 @@ const MainLayout = props => {
                         </SubMenu>
                     </Menu>
                 </Sider>
-                <Layout style={{ padding: '0 24px 24px'}}>
-                    <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    </Breadcrumb>
+                <Layout style={{ padding: '24px 24px 24px', background: 'rgb(160 198 255)', height: '100%'}}>
                     <Content
                         className="site-layout-background"
                         style={{
