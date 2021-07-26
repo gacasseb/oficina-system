@@ -10,13 +10,12 @@
   "author": "m. nindra zaka",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "method-override": "^3.0.0",
     "mysql": "^2.15.0",
     "pug": "^2.0.3"
   },
-  "devDependencies": {
-    "nodemon": "^1.17.4"
-  }
+  "devDependencies": {}
 }

@@ -3,11 +3,9 @@ const app = express()
 var methodOverride = require("method-override")
 const path = require("path")
 const con = require("./config/db.js")
+const cors = require('cors')
 
-// Using pug template engine
-// app.set("views", path.join(__dirname, "views"))
-// app.set("view engine", "pug")
-
+app.use(cors())
 // connecting route to database
 app.use(function(req, res, next) {
   req.con = con
@@ -26,6 +24,6 @@ const carRouter = require("./routes/carRouter")
 app.use("/v1/car", carRouter)
 
 // starting server
-app.listen(3000, function() {
-  console.log("server listening on port 3000")
+app.listen(4000, function() {
+  console.log("server listening on port 4000")
 })
