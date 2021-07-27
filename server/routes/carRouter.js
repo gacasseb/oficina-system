@@ -4,4 +4,5 @@ const carController = require("../controller/carController")
 
 router.get("/", carController.index)
 router.post("/create", carController.create)
+router.post("/update", carController.update)
 module.exports = router

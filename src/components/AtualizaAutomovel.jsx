@@ -1,24 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios'
 import { Form, Input, Select, Modal, DatePicker, message } from 'antd'
 
-const RegistraAutomovel = props => {
+const AtualizaAutomovel = props => {
 
     const [form] = Form.useForm()
 
+    useEffect(() => {
+        form.setFieldsValue(props.item)
+    }, [props.item])
+
     const onSubmit = (values) => {
-        axios.post('http://localhost:4000/v1/car/create', values)
+        axios.post(`http://localhost:4000/v1/car/update?id=${props.item.id}`, values)
         .then(res => {
             if ( res.status == 200 ) {
-                message.success('Veículo criado com sucesso')
-                props.setShowModal(false)
+                message.success('Veículo atualizado com sucesso')
+                props.showUpdateModal(false)
                 props.getData()
             }
         })
     }
 
     return (
-        <Modal {...props} onCancel={() => {props.setShowModal(false)}} onOk={form.submit} destroyOnClose={true}>
+        <Modal {...props} onCancel={() => {props.showUpdateModal(false)}} onOk={form.submit} destroyOnClose={true}>
             <Form layout='vertical' form={form} onFinish={onSubmit}>
                 <Form.Item label='Tipo do automóvel' name='type'>
                     <Select
@@ -52,4 +56,4 @@ const RegistraAutomovel = props => {
     );
 };
 
-export default RegistraAutomovel;
+export default AtualizaAutomovel;

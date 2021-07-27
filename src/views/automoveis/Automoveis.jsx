@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
-import RegistraAutomovel from '../../components/RegistraAutomovel'
 import { Button, List, Spin } from 'antd'
 import { PlusOutlined } from '@ant-design/icons';
-
 import axios from 'axios'
 
-import { handleSubmit } from '../../shared/utils/form';
+import RegistraAutomovel from '../../components/RegistraAutomovel'
+import AtualizaAutomovel from '../../components/AtualizaAutomovel'
 
 const Automoveis = () => {
 
     const [showModal, setShowModal] = useState(false)
+    const [updateModal, showUpdateModal] = useState(false)
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState([])
+    const [item, setItem] = useState({})
 
     useEffect(() => {
         getData()
@@ -29,8 +30,6 @@ const Automoveis = () => {
         })
     }
 
-    console.log('data', data)
-
     const content = () => {
 
         if ( loading ) {
@@ -39,13 +38,6 @@ const Automoveis = () => {
 
         if ( Array.isArray(data) && data.length > 0 ) {
             
-            let list = data.map(row => {
-                return {
-                    title: row.name,
-                    description: row.year
-                }
-            })
-
             return (
                 <List
                     header='Meus automóveis'
@@ -55,14 +47,21 @@ const Automoveis = () => {
                         type='link'
                     >Registrar automóvel</Button>}
                     itemLayout="horizontal"
-                    dataSource={list}
-                    renderItem={item => {
-                        return <List.Item>
-                            <List.Item.Meta
-                                title={item.title}
-                                description={item.description}
-                            />
-                        </List.Item>
+                    dataSource={data}
+                    renderItem={(item, row) => {
+                        return (
+                            <List.Item
+                                actions={[<a key="list-loadmore-edit" onClick={ _ => {
+                                    setItem(item)
+                                    showUpdateModal(true)
+                                }}>Editar</a>]}
+                            >
+                                <List.Item.Meta
+                                    title={item.name}
+                                    description={item.year}
+                                />
+                            </List.Item>
+                        )
                     }}
                 />
             )
@@ -74,13 +73,17 @@ const Automoveis = () => {
             {content()}
             <div style={{width: '100%', textAlign: 'center'}}>
                 <div style={{display: 'inline-block', width: '50%', margin: '0 auto'}}>
-                    
                     <RegistraAutomovel
                         getData={getData}
                         visible={showModal}
                         setShowModal={setShowModal}
                     />
-                    
+                    <AtualizaAutomovel
+                        item={item}
+                        getData={getData}
+                        visible={updateModal}
+                        showUpdateModal={showUpdateModal}
+                    />
                 </div>
             </div>
         </>

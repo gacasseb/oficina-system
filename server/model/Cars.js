@@ -21,8 +21,9 @@ module.exports = {
   update: function(con, data, id, callback) {
     con.query(
       `UPDATE cars SET 
-      name = '${data.name}', 
-      brand = '${data.brand}' 
+      name = '${data.name}',
+      brand = '${data.brand}',
+      type = '${data.type}'
       WHERE id = ${id}`,
       callback
     )

@@ -18,4 +18,14 @@ module.exports = {
       res.send({data: rows})
     })
   },
+  update: function(req, res) {
+    console.log('req.body', req.body)
+    console.log('req.params.id', req.query.id)
+    Cars.update(req.con, req.body, req.query.id, function(err, rows) {
+      if ( err ) {
+        throw err
+      }
+      res.send({data: rows})
+    })
+  },
 }
