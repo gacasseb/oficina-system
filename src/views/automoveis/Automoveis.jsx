@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Button, List, Spin } from 'antd'
+import { Button, List, message, Spin, Modal } from 'antd'
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios'
 
@@ -54,7 +54,20 @@ const Automoveis = () => {
                                 actions={[<a key="list-loadmore-edit" onClick={ _ => {
                                     setItem(item)
                                     showUpdateModal(true)
-                                }}>Editar</a>]}
+                                }}>Editar</a>, <a key="list-loadmore-edit" onClick={ _ => {
+                                    Modal.confirm({
+                                        title: 'Têm certeza que deseja remover este veículo',
+                                        onOk: () => {
+                                            axios.delete(`http://localhost:4000/v1/car/destroy?id=${item.id}`)
+                                            .then(res => {
+                                                if ( res.status == 200 ) {
+                                                    message.success('Automóvel removido com sucesso')
+                                                    getData()
+                                                }
+                                            })
+                                        }
+                                    })
+                                }}>Remover</a>]}
                             >
                                 <List.Item.Meta
                                     title={item.name}
