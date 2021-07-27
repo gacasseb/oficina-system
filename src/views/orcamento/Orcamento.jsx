@@ -1,18 +1,34 @@
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios'
 import { Form, Input, Select, Button } from 'antd'
-import { carros } from '../../carros_registrados'
 
 const { TextArea } = Input
 
 const Orcamento = () => {
-    const dataCars = carros.map((car, idx) => {
-        return (
-            <Select.Option key={idx} value={car.name}>
-                {car.name}
-            </Select.Option>
-        )
-    })
+
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        getData()
+    }, [])
+
+   function getData() {
+        axios.get('http://localhost:4000/v1/car')
+        .then(res => {
+            if ( res.status == 200 ) {
+                setData(res.data.data)
+            }
+        })
+    }
+
+    let loading = false
+    if ( Array.isArray(data) && data.length > 0 ) {
+        var options = data.map((row, idx) => {
+            return <Select.Option key={idx} value={row.name}>{row.name}</Select.Option>
+        })
+    } else { 
+        loading = true
+    }
 
     return (
         <div style={{width: '100%', textAlign: 'center'}}>
@@ -20,6 +36,7 @@ const Orcamento = () => {
                 <Form layout='vertical'>
                     <Form.Item label='Automóvel'>
                         <Select
+                            loading={loading}
                             placeholder='Selecione um automóvel'
                             notFoundContent={
                                 <Button type="dashed" block>
@@ -27,7 +44,7 @@ const Orcamento = () => {
                                 </Button>
                             }
                         >
-                            {dataCars}
+                            {options}
                         </Select>
                     </Form.Item>
                     <Form.Item label='Descrição do problema'>
