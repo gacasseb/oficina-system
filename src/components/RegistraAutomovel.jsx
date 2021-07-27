@@ -1,6 +1,5 @@
 import React from 'react';
-import { handleSubmit } from '../shared/utils/form';
-
+import axios from 'axios'
 import { Form, Input, Select, Modal, DatePicker, message } from 'antd'
 
 const RegistraAutomovel = props => {
@@ -8,31 +7,32 @@ const RegistraAutomovel = props => {
     const [form] = Form.useForm()
 
     const onSubmit = (values) => {
-        handleSubmit(null, {
-            method: 'post',
-            url: `http://localhost:4000/v1/car/create`,
-            data: values,
-            onSuccess: res => {
-                message.success('Veículo criado com sucesso!')
+        console.log('values', values)
+        axios.post('http://localhost:4000/v1/car/create', values)
+        .then(res => {
+            console.log('res', res)
+            if ( res.status == 200 ) {
+                message.success('Veículo criado com sucesso')
+                props.setShowModal(false)
+                props.getData()
             }
         })
     }
 
     return (
-        <Modal {...props} onOk={form.submit} destroyOnClose={true}>
+        <Modal {...props} onCancel={() => {props.setShowModal(false)}} onOk={form.submit} destroyOnClose={true}>
             <Form layout='vertical' form={form} onFinish={onSubmit}>
-                <Form.Item label='Tipo do automóvel'>
+                <Form.Item label='Tipo do automóvel' name='type'>
                     <Select
                         placeholder='Selecione o tipo do automóvel'
-                        name='type'
                     >
-                        <Select.Option value='carro'>
+                        <Select.Option value='car'>
                             Carro
                         </Select.Option>
-                        <Select.Option value='moto'>
+                        {/* <Select.Option value='moto'>
                             Moto
-                        </Select.Option>
-                        <Select.Option value='caminhao'>
+                        </Select.Option> */}
+                        <Select.Option value='truck'>
                             Caminhão
                         </Select.Option>
                     </Select>

@@ -4,6 +4,8 @@ import RegistraAutomovel from '../../components/RegistraAutomovel'
 import { Button, List, Spin } from 'antd'
 import { PlusOutlined } from '@ant-design/icons';
 
+import axios from 'axios'
+
 import { handleSubmit } from '../../shared/utils/form';
 
 const Automoveis = () => {
@@ -18,17 +20,16 @@ const Automoveis = () => {
 
    function getData() {
         setLoading(true)
-        handleSubmit('http://localhost:4000/v1/car', {
-            method: 'get',
-            onSuccess: res => {
-                console.log('res', res)
+        axios.get('http://localhost:4000/v1/car')
+        .then(res => {
+            if ( res.status == 200 ) {
                 setLoading(false)
-                if (res.status == 200) {
-                    setData(res.data.data)
-                }
+                setData(res.data.data)
             }
         })
     }
+
+    console.log('data', data)
 
     const content = () => {
 
@@ -74,10 +75,10 @@ const Automoveis = () => {
             <div style={{width: '100%', textAlign: 'center'}}>
                 <div style={{display: 'inline-block', width: '50%', margin: '0 auto'}}>
                     
-                    <RegistraAutomovel 
-                        visible={showModal} 
-                        onOk={_=>setShowModal(false)}
-                        onCancel={_=>setShowModal(false)}
+                    <RegistraAutomovel
+                        getData={getData}
+                        visible={showModal}
+                        setShowModal={setShowModal}
                     />
                     
                 </div>
