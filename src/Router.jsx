@@ -9,6 +9,8 @@ import Orcamento from './views/orcamento/Orcamento.jsx'
 import Relatorios from './views/relatorios/Relatorios.jsx'
 import Login from './views/login/Login.jsx'
 import Solicitacoes from './views/solicitacoes/Solicitacoes.jsx'
+import ConsultarCliente from './views/cliente/ConsultarCliente.jsx'
+import CadastrarCliente from './views/cliente/CadastrarCliente.jsx'
 
 const Router = props => {
 
@@ -31,6 +33,12 @@ const Router = props => {
                     </Route>
                     <Route exact path='/solicitacoes'>
                         <Solicitacoes/>
+                    </Route>
+                    <Route path ='/cliente/consultar'>
+                        <ConsultarCliente/>
+                    </Route>
+                    <Route path ='/cliente/cadastrar'>
+                        <CadastrarCliente/>
                     </Route>
                     <Route exact path='/'>
                         <Index />

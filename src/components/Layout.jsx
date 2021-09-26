@@ -38,6 +38,8 @@ const MainLayout = props => {
                         style={{ height: '100%', borderRight: 0 }}
                     >
                         <SubMenu key="menu-user" icon={<UserOutlined />} title="nome_do_usuario">
+                            <Menu.Item key="/consultar-cliente" onClick={ _ => redirect('/cliente/consultar')}>Consultar Cliente</Menu.Item>
+                            <Menu.Item key="/cadastrar-cliente" onClick={ _ => redirect('/cliente/cadastrar')}>Cadastrar Cliente</Menu.Item>
                             <Menu.Item key="/orcamento" onClick={ _ => redirect('/orcamento')}>Solicitar orçamento</Menu.Item>
                             <Menu.Item key="/automoveis" onClick={ _ => redirect('/automoveis')}>Meus automóveis</Menu.Item>
                             <Menu.Item key="/relatorios" onClick={ _ => redirect('/relatorios')}>Relatórios</Menu.Item>
