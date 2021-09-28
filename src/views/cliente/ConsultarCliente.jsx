@@ -12,23 +12,34 @@ const ConsultarCliente = () => {
 
     const [document, setDocument] = useState('')
     const [client, setClient] = useState({})
+    const [model, setModel] = useState([])
 
     function onSearch() {
-        setClient({
-            label: 'Nome',
-            data: 'Gabriel Casseb',
-        });
-
-        return;
-        axios.get('/rota/consulta-cliente')
+        axios.get(`http://localhost:8000/cliente/consultar-cliente?documento=${document}`)
         .then( res => {
             if ( res.status == 200 ) {
                 message.success('Cliente encontrado com sucesso!');
-                setClient(res.data);
+                setModel([
+                    {
+                        label: 'Nome',
+                        data: res.data.nome
+                    },
+                    {
+                        label: 'Email',
+                        data: res.data.email
+                    },
+                    {
+                        label: 'Documento',
+                        data: mask(res.data.documento)
+                    },
+                    {
+        
+                    }
+                ])
             }
         })
         .catch( err => {
-            message.error(err.data.message);
+            message.error('Não há cliente encontrado');
         })
     }
 
@@ -38,9 +49,7 @@ const ConsultarCliente = () => {
             <>
                 <AppDescriptions
                     title='Cliente'
-                    items={[
-                        {...client}
-                    ]}
+                    items={model}
                 />
             </>
         )
@@ -48,7 +57,7 @@ const ConsultarCliente = () => {
 
     return (
         <>
-            <Search placeholder="Insira seu documento" value={document} allowClear maxLength={18} onChange={e => setDocument(mask(e.target.value))} onSearch={onSearch} style={{ width: 500 }} />
+            <Search placeholder="Insira seu documento" value={document} allowClear maxLength={18} onChange={e => setDocument(mask(e.target.value))} onSearch={onSearch} style={{ width: 500, marginBottom: 40 }} />
             { content() }
         </>
     );

@@ -37,15 +37,18 @@ const MainLayout = props => {
                         defaultOpenKeys={['/orcamento']}
                         style={{ height: '100%', borderRight: 0 }}
                     >
-                        <SubMenu key="menu-user" icon={<UserOutlined />} title="nome_do_usuario">
+                        <SubMenu key="menu-user" icon={<UserOutlined />} title="Usuário">
                             <Menu.Item key="/consultar-cliente" onClick={ _ => redirect('/cliente/consultar')}>Consultar Cliente</Menu.Item>
                             <Menu.Item key="/cadastrar-cliente" onClick={ _ => redirect('/cliente/cadastrar')}>Cadastrar Cliente</Menu.Item>
                             <Menu.Item key="/orcamento" onClick={ _ => redirect('/orcamento')}>Solicitar orçamento</Menu.Item>
                             <Menu.Item key="/automoveis" onClick={ _ => redirect('/automoveis')}>Meus automóveis</Menu.Item>
                             <Menu.Item key="/relatorios" onClick={ _ => redirect('/relatorios')}>Relatórios</Menu.Item>
+                            <Menu.Item key="/consultar-endereço" onClick={ _ => redirect('/consultar-endereço')}>Consultar Endereço</Menu.Item>
                         </SubMenu>
-                        <SubMenu key="menu-admin" icon={<UserOutlined />} title="nome_do_admin">
-                            <Menu.Item key="/solicitacoes" onClick={ _ => redirect('/solicitacoes')}>Solicitações de orçamento</Menu.Item>
+                        <SubMenu key="menu-admin" icon={<UserOutlined />} title="Administrador">
+                            <Menu.Item key="/solicitacoes" onClick={ _ => redirect('/solicitacoes')}>Pedidos de manutenção</Menu.Item>
+                            <Menu.Item key="/produtos" onClick={ _ => redirect('/produto')}>Produtos</Menu.Item>
+                            <Menu.Item key="/serviço" onClick={ _ => redirect('/serviço')}>Serviços</Menu.Item>
                         </SubMenu>
                     </Menu>
                 </Sider>

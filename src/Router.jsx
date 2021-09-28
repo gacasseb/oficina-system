@@ -11,6 +11,9 @@ import Login from './views/login/Login.jsx'
 import Solicitacoes from './views/solicitacoes/Solicitacoes.jsx'
 import ConsultarCliente from './views/cliente/ConsultarCliente.jsx'
 import CadastrarCliente from './views/cliente/CadastrarCliente.jsx'
+import Produto from './views/produtos/Produto.jsx'
+import Serviço from './views/serviços/Serviço.jsx'
+import ConsultarEndereço from './views/endereço/ConsultarEndereço.jsx'
 
 const Router = props => {
 
@@ -39,6 +42,15 @@ const Router = props => {
                     </Route>
                     <Route path ='/cliente/cadastrar'>
                         <CadastrarCliente/>
+                    </Route>
+                    <Route path ='/produto'>
+                        <Produto/>
+                    </Route>
+                    <Route path ='/serviço'>
+                        <Serviço/>
+                    </Route>
+                    <Route path ='/consultar-endereço'>
+                        <ConsultarEndereço/>
                     </Route>
                     <Route exact path='/'>
                         <Index />

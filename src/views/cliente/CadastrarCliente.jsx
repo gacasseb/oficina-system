@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-import { Form, Input, Button, InputNumber, Row, Col, Upload, Tag } from 'antd';
+import { Form, Input, Button, InputNumber, Row, Col, Upload, Tag, message } from 'antd';
 import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
+import { mask } from '../../helpers/mask';
 import axios from "axios";
 
 const { Dragger } = Upload;
@@ -15,12 +16,56 @@ const required = (message) => {
     ]
 }
 
-
 const CadastrarCliente = () => {
 
-    const [tags, setTags] = useState([])
+    const [tags, setTags] = useState([]);
+    const [formInstance] = Form.useForm();
     
     function onFinish(values) {
+        console.log('values', values)
+        axios.post('http://localhost:8000/cliente/cadastrar-cliente', values)
+        .then(res => {
+            if ( res.status == 200 ) {
+                message.success('Cliente cadastrado com sucesso!');
+            }
+        })
+        .catch( err => {
+
+        })
+    }
+
+    function fetchAddress(cep) {
+        console.log('cep', cep)
+        axios.get('http://localhost:8000/endereco/obter-endereco-por-cep', {
+            params: {
+                cep
+            }
+        })
+        .then(res => {
+            if ( res.status == 200 && res.data ) {
+                let data = {};
+
+                if ( res.data.bairro ) {
+                    data.bairro = res.data.bairro.nome;
+                }
+                if ( res.data.cidade ) {
+                    data.nome_cidade = res.data.cidade.nome;
+                }
+                if ( res.data.logradouro ) {
+                    data.nome_logradouro = res.data.logradouro.nome_logradouro;
+                    // data.complemento = res.data.logradouro.complemento;
+                    // data.numero = res.data.logradouro.numero;
+                }
+
+                if ( data ) {
+                    formInstance.setFieldsValue({
+                        ...data
+                    });
+                }
+            }
+        })
+        .catch(err => {
+        })
     }
 
     const renderTags = () => {
@@ -39,11 +84,33 @@ const CadastrarCliente = () => {
 
     return (
         <>
-            <Form onFinish={onFinish}>
+            <Form onFinish={onFinish} form={formInstance} onValuesChange={(value, values) => {
+                formInstance.setFieldsValue({
+                    ...values,
+                    cnpj: mask(values.cnpj)
+                })
+            }}>
 
-                <Form.Item name='nome' label='Nome do cliente' rules={required('Insira um nome de cliente')}>
-                    <Input></Input>
-                </Form.Item>
+                <Row>
+                    <Col span={7} style={{marginRight: 30}}>
+                        <Form.Item name='nome' label='Nome do cliente' rules={required('Insira um nome de cliente')}>
+                            <Input></Input>
+                        </Form.Item>
+                    </Col>
+
+                    <Col span={7} style={{marginRight: 30}}>
+                        <Form.Item label='Nome do meio'>
+                            <Input></Input>
+                        </Form.Item>
+                    </Col>
+
+                    <Col span={7} style={{marginRight: 30}}>
+                        <Form.Item label='Último nome'>
+                            <Input></Input>
+                        </Form.Item>
+                    </Col>
+                </Row>
+
 
                 <Form.Item name='cpf' label='CPF ou CNPJ' rules={required('Insira um CPF')}>
                     <Input maxLength={14}></Input>
@@ -52,12 +119,16 @@ const CadastrarCliente = () => {
                 <Row>
                     <Col span={3}>
                         <Form.Item name='cep' label='CEP' style={{marginRight: 30}}>
-                            <Input maxLength={11}></Input>
+                            <Input maxLength={11} onChange={e => {
+                                if ( e.target.value.length == 8 ) {
+                                    fetchAddress(e.target.value);
+                                }
+                            }}></Input>
                         </Form.Item>
                     </Col>
 
                     <Col span={6}>
-                        <Form.Item name='rua' label='Rua' style={{marginRight: 30}}>
+                        <Form.Item name='nome_logradouro' label='Logradouro' style={{marginRight: 30}}>
                             <Input></Input>
                         </Form.Item>
                     </Col>
@@ -77,13 +148,13 @@ const CadastrarCliente = () => {
 
                 <Row>
                     <Col span={6}>
-                        <Form.Item name='cidade' label='Cidade' style={{marginRight: 30}}>
+                        <Form.Item name='nome_cidade' label='Cidade' style={{marginRight: 30}}>
                             <Input></Input>
                         </Form.Item>
                     </Col>
 
                     <Col span={3}>
-                        <Form.Item name='UF' label='UF' style={{marginRight: 30}}>
+                        <Form.Item name='uf' label='UF' style={{marginRight: 30}}>
                             <Input></Input>
                         </Form.Item>
                     </Col>

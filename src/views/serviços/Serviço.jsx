@@ -4,10 +4,10 @@ import { Button, List, message, Spin, Modal } from 'antd'
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios'
 
-import RegistraAutomovel from '../../components/RegistraAutomovel'
 import AtualizaAutomovel from '../../components/AtualizaAutomovel'
+import RegistrarServiço from '../../components/RegistrarServiço';
 
-const Automoveis = () => {
+const Serviço = () => {
 
     const [showModal, setShowModal] = useState(false)
     const [updateModal, showUpdateModal] = useState(false)
@@ -19,21 +19,21 @@ const Automoveis = () => {
         // getData()
         setData([
             {
-                name: 'Palio',
-                year: '1980'
+                name: 'Troca de óleo',
+                price: 'R$ 120.00'
             }
         ])
     }, [])
 
    function getData() {
-        setLoading(true)
-        axios.get('http://localhost:4000/v1/car')
-        .then(res => {
-            if ( res.status == 200 ) {
-                setLoading(false)
-                setData(res.data.data)
-            }
-        })
+        // setLoading(true)
+        // axios.get('http://localhost:4000/v1/car')
+        // .then(res => {
+        //     if ( res.status == 200 ) {
+        //         setLoading(false)
+        //         setData(res.data.data)
+        //     }
+        // })
     }
 
     const content = () => {
@@ -46,12 +46,12 @@ const Automoveis = () => {
             
             return (
                 <List
-                    header='Meus automóveis'
+                    header='Produtos cadastrados'
                     footer={<Button 
                         icon={<PlusOutlined/>}
                         onClick={_=>setShowModal(true)}
                         type='link'
-                    >Registrar automóvel</Button>}
+                    >Registrar serviço</Button>}
                     itemLayout="horizontal"
                     dataSource={data}
                     renderItem={(item, row) => {
@@ -77,7 +77,7 @@ const Automoveis = () => {
                             >
                                 <List.Item.Meta
                                     title={item.name}
-                                    description={item.year}
+                                    description={item.price}
                                 />
                             </List.Item>
                         )
@@ -92,7 +92,7 @@ const Automoveis = () => {
             {content()}
             <div style={{width: '100%', textAlign: 'center'}}>
                 <div style={{display: 'inline-block', width: '50%', margin: '0 auto'}}>
-                    <RegistraAutomovel
+                    <RegistrarServiço
                         getData={getData}
                         visible={showModal}
                         setShowModal={setShowModal}
@@ -109,4 +109,4 @@ const Automoveis = () => {
     )
 };
 
-export default Automoveis;
+export default Serviço;
